@@ -325,7 +325,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['gue
 
 		Route::match(array('GET', 'POST'), 'settings/email', 'SettingsController@email')->middleware(['permission:email_settings']);
 
-
+		Route::get('settings/payment-plan', 'PaymentPlanController@index')->name('admin.settings.payment-plan');	
+		Route::match(array('GET', 'POST'), 'settings/add-payment-plan', 'PaymentPlanController@add');
+		Route::match(array('GET', 'POST'), 'settings/edit-payment-plan/{id}', 'PaymentPlanController@update');
+		Route::get('settings/delete-payment-plan/{id}', 'PaymentPlanController@delete');
 
 		Route::group(['middleware' => 'permission:manage_language'], function () {
 			Route::get('settings/language', 'LanguageController@index');
@@ -374,6 +377,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['gue
 			Route::match(array('GET', 'POST'), 'edit-testimonials/{id}', 'TestimonialController@update');
 			Route::get('delete-testimonials/{id}', 'TestimonialController@delete');
 		});
+		// Route::group(['middleware' => 'permission:manage_payment_plan'], function () {
+		// });
 	});
 });
 
@@ -479,9 +484,13 @@ Route::group(['middleware' => ['guest:users', 'locale']], function () {
     Route::post('currency-symbol', 'PropertyController@currencySymbol');
     Route::match(['get', 'post'], 'payments/book/{id?}', 'PaymentController@index');
     Route::post('payments/create_booking', 'PaymentController@createBooking');
+	
 
 	//Route::get('payment', [PaymentController::class,'payment'])->name('payment');
     Route::match(['get', 'post'], 'payment', 'PaymentController@payment')->name('payment');
+
+	Route::get('payments/payment-plans', 'PaymentPlansController@viewPlans');
+
 
 
     Route::get('payments/success', 'PaymentController@success');
@@ -544,6 +553,8 @@ Route::get('svimport/{db}', 'HomeController@svimport');
 
 Route::get('randam/{code}', 'HomeController@check_data');
 Route::match(array('GET', 'POST'),'getproperty', 'HomeController@getproperty');
+
+Route::post('/send-message', 'MessageController@send')->name('send.message');
 
 Route::group(['middleware' => ['locale']], function () {
     Route::get('{name}', 'HomeController@staticPages');

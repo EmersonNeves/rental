@@ -86,7 +86,7 @@ class CountryController extends Controller
     {
         if (! $request->isMethod('post')) {
              $data['result'] = Country::find($request->id);
-
+            \Log::info('aqui', $data['result']);
             return view('admin.countrys.edit', $data);
         } elseif ($request->isMethod('post')) {
             $rules = array(

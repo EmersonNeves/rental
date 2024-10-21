@@ -221,6 +221,10 @@ input:checked + .slider:after
                              <input class="form-control p-3 border-right-0 border text-14 checkinout" name="checkin" id="startDate" type="hidden" placeholder="{{trans('messages.search.check_in')}}" value="{{$checkin}}" autocomplete="off" readonly="readonly" required>
                             <input class="form-control p-3 border-right-0 border text-14 checkinout" name="checkout" id="endDate" type="hidden" placeholder="{{trans('messages.search.check_out')}}"  value="{{$checkout}}" readonly="readonly" required>
 
+                            <div class="form-group">
+                        <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate">{{ trans('messages.search.location') }}</h5>
+                        <input type="text" class="form-control" id="location-filter" name="location" value="{{ $location }}" placeholder="{{ trans('messages.home.where_want_to_go') }}">
+                    </div>
                              <div class="mt-4">
                                  <div class="col-sm-12">
                                     <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate"> {{trans('messages.search.price_range')}}</h5>
@@ -314,11 +318,21 @@ input:checked + .slider:after
 
                             <div class="mt-4">
                                 <div class="col-sm-12">
-                                    <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate"> {{trans('messages.listing_book.booking_type')}} </h5>
+                                    <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="negociation_type"> {{trans('messages.listing_book.booking_type')}} </h5>
                                 </div>
 
                                     <div class="row p-3">
-                                        <div class="col-md-4 rtl_text_right">
+                                        <div>
+                                            <div class="justify-content-between pl-4">
+                                                <input type="checkbox" id="venda" name="negociation_type" value="0">
+                                                <label for="venda">Venda</label>
+                                            </div>
+                                            <div class="justify-content-between pl-4">
+                                                <input type="checkbox" id="aluguel" name="negociation_type" value="1" checked>
+                                                <label for="aluguel">Aluguel</label>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4 rtl_text_right">
                                             <div class="justify-content-between pl-4">
                                                 <div>
                                                     <input type="checkbox" name="book_type[]" class="form-check-input" value="request">
@@ -328,9 +342,9 @@ input:checked + .slider:after
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-md-4 rtl_text_right">
+                                        <!-- <div class="col-md-4 rtl_text_right">
                                             <div class="justify-content-between pl-4">
                                                 <div>
                                                     <input type="checkbox" name="book_type[]" class="form-check-input"  value="instant">
@@ -340,12 +354,14 @@ input:checked + .slider:after
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <!--<div class="col-md-12 text-right mt-4">
                                             <button class="btn vbtn-success text-16 font-weight-700  rounded" id="btnBook">{{trans('messages.utility.apply')}}</button>
                                         </div>-->
                                     </div>
+
+                                 
 
                             </div>
 
@@ -470,8 +486,7 @@ input:checked + .slider:after
                             </div> -->
 
                              <input type="hidden" name="type[]" class="form-check-input hide" value="property" checked >
-
-                            <!--<div class="row mt-5">
+                          <!--<div class="row mt-5">
                                 <div class="col-sm-12">
                                     <h5 class="font-weight-700 text-24 pl-4" for="user_birthdate">{{ trans('messages.search.property_type') }}</h5>
                                 </div>
@@ -566,6 +581,27 @@ jQuery(document).ready(function() {
         var markers      = [];
         var allowRefresh = true;
         var loadPage = '{{url("search/result")}}';
+
+            
+        // Função de filtro para o campo de localização
+        $("#location-filter").on("keyup", function() {
+            var location = $(this).val();
+
+            console.log(location)
+            
+            if (location.length > 2) {
+                allowRefresh = true;
+                deleteMarkers();
+                loadPage = '{{url("search/result")}}';
+                
+                // Atualiza o valor do campo de busca principal
+                $('#header-search-form').val(location);
+                
+                // Chama a função para atualizar os resultados
+                getProperties($('#map_view').locationpicker('map').map);
+            }
+        });
+
 
         $("#price-range").slider();
 
@@ -732,6 +768,7 @@ jQuery(document).ready(function() {
 
             //Input Search value set
             $('#header-search-form').val(location);
+            var location = $('#location-filter').val();
             //Input Search value set
             var min_price       = range[0];
             var max_price       = range[1];
@@ -748,6 +785,10 @@ jQuery(document).ready(function() {
             var checkin         = $('#startDate').val();
             var checkout        = $('#endDate').val();
             var type            = getCheckedValueArray('type');
+            var negociation_type = [];
+                $('input[name="negociation_type"]:checked').each(function() {
+                negociation_type.push($(this).val());
+            });
 
             //CUSTOM GUESTS + PETS
             // var guest           = $('#front-search-guests').val();
@@ -766,6 +807,7 @@ jQuery(document).ready(function() {
 
 var rowNum = 0;
             if($('#more_filters').css('display') != 'none'){
+                console.log('more filters', location);
                 $.ajax({
                     url: dataURL,
                     data: {
@@ -780,12 +822,14 @@ var rowNum = 0;
                         'beds': beds,
                         'bathrooms': bathrooms,
                         'bedrooms': bedrooms,
-                        'checkin': checkin,
-                        'checkout': checkout,
+                        // 'checkin': checkin,
+                        // 'checkout': checkout,
                         'guest': guest,
                         'pets': pets,
-                        'map_details': map_details,
+                        //'map_details': map_details,
                         'type':type,
+                        'negociation_type': negociation_type,
+                        
                     },
                     type: 'post',
                     dataType: 'json',
@@ -887,6 +931,8 @@ var rowNum = 0;
                                     var moneySymbol = properties[key].property_price.currency.symbol;
                                     var price       = properties[key].property_price.price;
                                     var symbolWithPrice = moneyFormat(moneySymbol, price);
+                                    var condominium = properties[key].property_price.condominium;
+                                    var condominiumPrice = moneyFormat(moneySymbol, condominium);
 
                                     var colDiv ='col-md-6 col-lg-4 p-2';
                                     var divCol = $('#listCol').hasClass('col-md-8');
@@ -1075,7 +1121,7 @@ var rowNum = 0;
 
             																+'<li class="list-inline-item p-1">'
                                                                                 +'<p class="text-center mb-0 text-muted text-13">'
-                                                                                    +properties[key].beds_count
+                                                                                    +properties[key].beds
                                                                                     +'<span class=""> {{trans('messages.property_single.bed')}}</span>'
                                                                                 +'</p>'
                                                                             +'</li>';
@@ -1130,7 +1176,8 @@ var rowNum = 0;
     															 else
     															 {
     															       room_div +='<span class="font-weight-700">'+symbolWithPrice+' / {{trans('messages.property_single.night')}} '+'</span>';
-                                                                 }
+                                                                       room_div += '<br><span>Condomínio: '+condominiumPrice+'</span>';
+                                                               }
                                                                  if(properties[key].booking_type=="instant") {
 																	room_div += '<i class="icon icon-instant-book yellow_color text-25" aria-hidden="true"></i>';
 															  }
@@ -1753,6 +1800,35 @@ var rowNum = 0;
               })
             })
           </script>
+          <script>
+            
+    $(document).ready(function() {
+        // Inicializar o valor do filtro de localização com o valor da busca, se existir
+        var searchLocation = "{{ $location ?? '' }}";
+        if (searchLocation) {
+            $('#location-filter').val(searchLocation);
+        }
+
+        // Aplicar filtros quando o botão for clicado
+        $('#apply-filters').click(function() {
+            var location = $('#location-filter').val();
+            // ... obter valores de outros filtros ...
+
+            // Atualizar a URL com os novos parâmetros
+            var url = new URL(window.location.href);
+            url.searchParams.set('location', location);
+            // ... definir outros parâmetros de filtro ...
+
+            // Recarregar a página com os novos filtros
+            window.location.href = url.toString();
+        });
+
+         // Garantir que ao selecionar uma opção de negociação, a outra seja desmarcada
+         $('input[name="negociation_type"]').on('change', function() {
+                $('input[name="negociation_type"]').not(this).prop('checked', false);
+            }); 
+        });
+    </script>
     @endpush
 
 @include('common.footer')

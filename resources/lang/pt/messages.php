@@ -313,7 +313,9 @@ return [
        'per_month'            =>'Por mês',
        'check_in'             =>'Check-in',
        'check_out'            =>'Confira',
-       'night'                =>'noite',
+       'no_beds_info'         =>'Não há informações sobre as vagas de garagem',
+       //'night'                =>'noite',
+       'night'                =>'mês',
        'service_fee'          =>'Taxa de serviço',
        'security_fee'         =>'Taxa de segurança',
        'additional_guest_fee' =>'Taxa de convidado adicional',
@@ -385,7 +387,9 @@ return [
       'custom_cancellation_flexible' => 'Flexível',
       'custom_cancellation_moderate' => 'Moderada',
       'custom_cancellation_strict'   => 'Estrita',
-      'custom_discount' => 'Desconto'
+      'custom_discount' => 'Desconto',
+
+      'address' => 'Endereço'
     ],
 
     'listing_sidebar'=>[
@@ -394,7 +398,7 @@ return [
        'location'             => 'Localização',
        'amenities'            => 'Características',
        'photos'               => 'Fotos',
-       'price'                => 'Preços',
+       'price'                => 'Valores',
        'booking'              => 'Reserva',
        'calender'             => 'Calendário',
 
@@ -407,6 +411,7 @@ return [
     ],
 
     'listing_basic'=>[
+        'area'                 =>'Área em m²',
         'room_bed'             =>'Dormitórios',
         'bedroom'              =>'Dormitórios',
         'bed'                  =>'Vagas de Garagem',
@@ -428,7 +433,7 @@ return [
 
     ],
     'listing_description'=>[
-       'listing_name'          =>'Nome do Listado',
+       'listing_name'          =>'Nome do Imóvel',
        'summary'               =>'Resumo',
        'add_more'              =>'Você pode adicionar mais',
        'detail'                =>'Detalhes',

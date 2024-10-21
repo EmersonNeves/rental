@@ -141,7 +141,6 @@ if($currentPaths == 'new-home')
      							        <a class="pr-4 text-danger" target="_blank" href="{{ url('old-home') }}">{{ trans('messages.experience.switch_old_home_page') }}</a>
 							     <?php } } ?>
 
-								<a href="#" aria-label="modalLanguge" data-toggle="modal" data-target="#languageModalCenter"> <i class="fa fa-globe"></i> <u>{{  Session::get('language_name')  ?? $default_language[0]->name }} </u></a>
 								<a href="#" aria-label="modalCurrency" data-toggle="modal" data-target="#currencyModalCenter"> <span class="ml-4">{!! Session::get('symbol')  !!} - <u>{{ Session::get('currency')  }}</u> </span></a>
 								<?php if($homepage_type=="new_home" || $currentPaths=="new-home") { ?>
 								<span class="pl-3 sv_support">{{ trans('messages.experience.support_resources') }} <i class="fa fa-chevron-down"></i></span>

@@ -27,10 +27,11 @@
 							<div class="container">
 
               <!-- CUSTOM -->
-              <ul class="nav nav-tabs mt-3 ml-3">
-									<li><a class="active" data-toggle="tab" href="#collapseen">English</a></li>
+              <ul class="nav nav-tabs mt-3 ml-3 display-none" style="display: none;" >
+									<li><a class="active" data-toggle="tab" href="#collapseen">Português</a></li>
 									  @foreach($languages_new as $key => $language)
-									  @php  if($language->short_name == 'en'){continue;} @endphp
+									  @php  if($language->short_name == 'pt'){continue;} @endphp
+									  @php echo($language->short_name) @endphp
 
 										<li><a data-toggle="tab" href="#collapse{{ $language->short_name }}">{{ $language->name }}</a></li>
 									@endforeach

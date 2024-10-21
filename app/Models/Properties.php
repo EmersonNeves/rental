@@ -156,7 +156,7 @@ class Properties extends Model
 
     public function beds()
     {
-        return $this->belongsToMany('App\Models\BedType', 'properties_beds', 'property_id', 'bed_temp_id','id','temp_id')
+        return $this->belongsToMany('App\Models\BedType', 'properties_beds', 'property_id')
                     ->where('bed_type.lang','=',Session::get('language'))
                     ->withPivot('beds')
                     ->withTimestamps();

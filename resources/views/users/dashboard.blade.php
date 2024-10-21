@@ -28,11 +28,6 @@
                         <p class="font-weight-600 text-16">{{trans('messages.users_dashboard.identity_verification')}}</p>
                         <p class="text-14 text-muted mb-4">{{trans('messages.users_dashboard.verify_text')}}</p>
                         
-                        @if($user_verification->email=='no' || $user_verification->facebook=='no' || $user_verification->google=='no' || $user_verification->document=='no')
-                            <a class="p-3 svbadge rounded-4" href="{{ url('users/edit-verification') }}">{{trans('messages.users_dashboard.get_the_badge')}}</a>
-                        @else
-							<i class="fa fa-check-circle fa-3x text-success" aria-hidden="true"></i>
-                        @endif
                     </div>
                     <hr>
 
@@ -75,33 +70,6 @@
 								<p class="m-0 text-15 text-color"> {{trans('messages.users_dashboard.my_lists')}}</p>
 							</div>
 							
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="p-5 small-box border d-flex">
-						    <div class="svicon bg-green mr-5">
-                                <i class="fa fa-suitcase" aria-hidden="true"></i>   
-                            </div>
-							<div class="inner">
-								<a href="{{ url('/') }}/trips/active"><h3 class="font-weight-bold m-0 text-24">{{ $trip }}</h3></a>
-								<p class="text-15 m-0 text-color">{{trans('messages.users_dashboard.my_trips')}}</p>
-							</div>
-						
-						</div>
-					</div> 
-
-					<div class="col-md-4">
-						<div class="small-box p-5 border d-flex">
-						    <div class="svicon bg-orange mr-5">
-								<i class="fas fa-wallet mr-2 text-16 align-middle rounded-circle p-3"></i> 
-							</div>
-							<div class="inner">
-								<h3 class="font-weight-bold m-0 text-24"> {!! moneyFormat( $wallet->currency->symbol, $wallet->total) !!}</h3>
-								<p class="text-15 m-0 text-color">{{trans('messages.users_dashboard.my_wallet')}}</p>
-
-                            </div>
-                            
 						</div>
 					</div>
 				</div>

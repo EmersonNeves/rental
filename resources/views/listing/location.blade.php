@@ -28,11 +28,9 @@
 								<div class="row mt-4">
 									<div class="col-md-6 pl-5 ">
 										<label>{{trans('messages.listing_location.country')}} <span class="text-danger">*</span></label>
-										<select id="basics-select-bed_type" name="country" class="form-control text-16 mt-2" id='country'>
-											@foreach($country as $key => $value)
-												<option value="{{ $key }}" {{ ($key == $result->property_address->country) ? 'selected' : '' }}>{{ $value }}</option>
-											@endforeach
-										</select>
+
+										<input type="hidden" name="country" id="country" value="{{ $result->property_address->country }}">
+										<input type="text" id="country_fullname" value="{{ $result->property_address->country_fullname }}" class="form-control text-16 mt-2" readonly>
 										<span class="text-danger">{{ $errors->first('country') }}</span>
 									</div>
 									<div class="col-md-6 pr-5 mob-pd">
@@ -61,7 +59,7 @@
 
 									<div class="col-md-6 mt-4 pl-5 pr-5">
 										<label>{{trans('messages.listing_location.city_town_district')}}  <span class="text-danger">*</span></label>
-										<input type="text" name="city" id="city" value="{{ $result->property_address->city  }} " class="form-control text-16 mt-2">
+										<input type="text" name="city" id="city" value="{{ $result->property_address->city }}" class="form-control text-16 mt-2">
 										<span class="text-danger">{{ $errors->first('city') }}</span>
 									</div>
 
@@ -112,14 +110,14 @@
 	<script type="text/javascript" src="{{ url('public/js/locationpicker.jquery.min.js') }}"></script>
 	<script type="text/javascript">
 		function updateControls(addressComponents) {
+			console.log('aqui',addressComponents.stateOrProvince);
 			$('#street_number').val(addressComponents.streetNumber);
 			$('#route').val(addressComponents.streetName);
-			if (addressComponents.city) {
-				$('#city').val(addressComponents.city);
-			}
+			//$('#city').val(addressComponents.city);
 			$('#state').val(addressComponents.stateOrProvince);
 			$('#postal_code').val(addressComponents.postalCode);
-			$('#country').val(addressComponents.country);
+			$('#country').val('BR');
+			$('#country_fullname').val('Brasil');
 		}
 
 		$('#map_view').locationpicker({
@@ -137,7 +135,19 @@
 			enableAutocomplete: true,
 			onchanged: function (currentLocation, radius, isMarkerDropped) {
 				var addressComponents = $(this).locationpicker('map').location.addressComponents;
-				updateControls(addressComponents);
+				var formattedAddress = $(this).locationpicker('map').location.formattedAddress;
+				if(formattedAddress.length >= 13){
+					var addressTrim = formattedAddress.split(',').map(item => item.trim());
+					var city = formattedAddress.split(',').map(item => item.trim())[2].split('-')[0].trim();
+					$('#city').val(city);
+				}else{
+					$('#city').val('');
+				}
+
+				$('#country').val('BR');
+				$('#country_fullname').val('Brasil');
+				$('#state').val(addressComponents.stateOrProvince);
+
 			},
 			oninitialized: function (component) {
 				var addressComponents = $(component).locationpicker('map').location.addressComponents;
@@ -164,7 +174,8 @@
 					}
 				},
 				submitHandler: function(form)
-	            {
+	            {	
+					console.log(form);
 	                $("#btn_next").on("click", function (e)
 	                {
 	                	$("#btn_next").attr("disabled", true);

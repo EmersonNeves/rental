@@ -32,6 +32,6 @@ class PropertyBeds extends Model
 
     public function bed_type()
     {
-        return $this->hasOne('App\Models\BedType', 'bed_type_id', 'id');
+        return $this->hasOne('App\Models\BedType', 'bed_temp_id', 'id');
     }
 }

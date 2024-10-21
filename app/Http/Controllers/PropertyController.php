@@ -98,6 +98,7 @@ class PropertyController extends Controller
                 $property                  = new Properties;
                 $property->host_id         = Auth::id();
                 $property->name            = SpaceType::find($request->space_type)->name.' in '.$request->city;
+                $property->area            = $request->area;
                 $property->property_type   = $request->property_type_id;
                 $property->space_type      = $request->space_type;
                 $property->accommodates    = $request->accommodates;
@@ -162,11 +163,12 @@ class PropertyController extends Controller
                 $property->property_type      = $request->property_type;
                 $property->space_type         = $request->space_type;
                 $property->accommodates       = $request->accommodates;
+                $property->area               = $request->area;
                 $property->save();
 
                 //Custom - Property Beds
                 foreach ($request->beds as $bed)
-                    $beds[$bed['type']] = ['beds' => $bed['number']];
+                    $beds[1] = ['beds' => $bed['number']];
 
                 $property->beds()->sync($beds);
 
@@ -277,125 +279,125 @@ class PropertyController extends Controller
 
                   //return redirect('listing/'.$property_id.'/location');
 
-                  return redirect('listing/'.$property_id.'/details');
+                  return redirect('listing/'.$property_id.'/location');
 
                 }
             }
             $data['description']       = PropertyDescription::where('property_id', $property_id)->first();
 			$data['languages_new'] 	   = Language::where(['language.status'=>'Active'])->orderBy('id')->get();
 
-        } elseif ($step == 'details') {
-            if ($request->isMethod('post')) {
-                $property_description                       = PropertyDescription::where('property_id', $property_id)->first();
-                $property_description->about_place          = $request->about_place;
-                $property_description->place_is_great_for   = $request->place_is_great_for;
-                $property_description->guest_can_access     = $request->guest_can_access;
-                $property_description->interaction_guests   = $request->interaction_guests;
-                $property_description->other                = $request->other;
-                $property_description->about_neighborhood   = $request->about_neighborhood;
-                $property_description->get_around           = $request->get_around;
-                $property_description->save();
+        // } elseif ($step == 'details') {
+        //     if ($request->isMethod('post')) {
+        //         $property_description                       = PropertyDescription::where('property_id', $property_id)->first();
+        //         $property_description->about_place          = $request->about_place;
+        //         $property_description->place_is_great_for   = $request->place_is_great_for;
+        //         $property_description->guest_can_access     = $request->guest_can_access;
+        //         $property_description->interaction_guests   = $request->interaction_guests;
+        //         $property_description->other                = $request->other;
+        //         $property_description->about_neighborhood   = $request->about_neighborhood;
+        //         $property_description->get_around           = $request->get_around;
+        //         $property_description->save();
 
-				unset($request['_token']);
-				unset($request['about_place']);
-				unset($request['place_is_great_for']);
-				unset($request['guest_can_access']);
-				unset($request['interaction_guests']);
-				unset($request['other']);
-				unset($request['about_neighborhood']);
-				unset($request['get_around']);
-				$id=$request->id;
+		// 		unset($request['_token']);
+		// 		unset($request['about_place']);
+		// 		unset($request['place_is_great_for']);
+		// 		unset($request['guest_can_access']);
+		// 		unset($request['interaction_guests']);
+		// 		unset($request['other']);
+		// 		unset($request['about_neighborhood']);
+		// 		unset($request['get_around']);
+		// 		$id=$request->id;
 
-				foreach ($request->all() as $key => $value) {
-						$lang[] 	= $key;
-						$lang_id[]  = $value['id'];
-						unset($value['id']);
-						$data[]     = $value;
-				}
+		// 		foreach ($request->all() as $key => $value) {
+		// 				$lang[] 	= $key;
+		// 				$lang_id[]  = $value['id'];
+		// 				unset($value['id']);
+		// 				$data[]     = $value;
+		// 		}
 
-				for ($i=0; $i < count($lang_id); $i++) {
-					$check = PropertyMeta::where('lang_id', '=', $lang_id[$i])
-											->where('property_id', '=', $property_id)
-											->first();
-					if($lang_id[$i]!="1")
-						{
-
-
-					if ($check)
-					{
-						$templateToUpdate 			= PropertyMeta::where([['property_id',$property_id],['lang_id', $lang_id[$i]]])->first();
-						if(isset($data[$i]['about_place1']))
-						{
-							$templateToUpdate->about_place  	= $data[$i]['about_place1'];
-						}
-						if(isset($data[$i]['place_is_great_for1']))
-						{
-							$templateToUpdate->place_is_great_for  	= $data[$i]['place_is_great_for1'];
-						}
-						if(isset($data[$i]['guest_can_access1']))
-						{
-							$templateToUpdate->guest_can_access   = $data[$i]['guest_can_access1'];
-						}
-						if(isset($data[$i]['interaction_guests1']))
-						{
-							$templateToUpdate->interaction_guests   = $data[$i]['interaction_guests1'];
-						}
-						if(isset($data[$i]['other1']))
-						{
-							$templateToUpdate->other   = $data[$i]['other1'];
-						}
-						if(isset($data[$i]['about_neighborhood1']))
-						{
-							$templateToUpdate->about_neighborhood   = $data[$i]['about_neighborhood1'];
-						}
-						if(isset($data[$i]['get_around1']))
-						{
-							$templateToUpdate->get_around   = $data[$i]['get_around1'];
-						}
-						$templateToUpdate->save();
-					} else {
-						$newTemplate 			= new PropertyMeta;
-						$newTemplate->property_id   = $property_id;
-						if(isset($data[$i]['about_place1']))
-						{
-							$newTemplate->about_place  	= $data[$i]['about_place1'];
-						}
-						if(isset($data[$i]['place_is_great_for1']))
-						{
-							$newTemplate->place_is_great_for  	= $data[$i]['place_is_great_for1'];
-						}
-						if(isset($data[$i]['guest_can_access1']))
-						{
-							$newTemplate->guest_can_access   = $data[$i]['guest_can_access1'];
-						}
-						if(isset($data[$i]['interaction_guests1']))
-						{
-							$newTemplate->interaction_guests   = $data[$i]['interaction_guests1'];
-						}
-						if(isset($data[$i]['other1']))
-						{
-							$newTemplate->other   = $data[$i]['other1'];
-						}
-						if(isset($data[$i]['about_neighborhood1']))
-						{
-							$newTemplate->about_neighborhood   = $data[$i]['about_neighborhood1'];
-						}
-						if(isset($data[$i]['get_around1']))
-						{
-							$newTemplate->get_around   = $data[$i]['get_around1'];
-						}
-						$newTemplate->lang      = $lang[$i];
-						$newTemplate->lang_id   = $lang_id[$i];
-						$newTemplate->save();
-					}
-						}
-				}
+		// 		for ($i=0; $i < count($lang_id); $i++) {
+		// 			$check = PropertyMeta::where('lang_id', '=', $lang_id[$i])
+		// 									->where('property_id', '=', $property_id)
+		// 									->first();
+		// 			if($lang_id[$i]!="1")
+		// 				{
 
 
-               // return redirect('listing/'.$property_id.'/description');
-                return redirect('listing/'.$property_id.'/location');
-            }
-			$data['languages_new'] 		   = Language::where(['language.status'=>'Active'])->orderBy('id')->get();
+		// 			if ($check)
+		// 			{
+		// 				$templateToUpdate 			= PropertyMeta::where([['property_id',$property_id],['lang_id', $lang_id[$i]]])->first();
+		// 				if(isset($data[$i]['about_place1']))
+		// 				{
+		// 					$templateToUpdate->about_place  	= $data[$i]['about_place1'];
+		// 				}
+		// 				if(isset($data[$i]['place_is_great_for1']))
+		// 				{
+		// 					$templateToUpdate->place_is_great_for  	= $data[$i]['place_is_great_for1'];
+		// 				}
+		// 				if(isset($data[$i]['guest_can_access1']))
+		// 				{
+		// 					$templateToUpdate->guest_can_access   = $data[$i]['guest_can_access1'];
+		// 				}
+		// 				if(isset($data[$i]['interaction_guests1']))
+		// 				{
+		// 					$templateToUpdate->interaction_guests   = $data[$i]['interaction_guests1'];
+		// 				}
+		// 				if(isset($data[$i]['other1']))
+		// 				{
+		// 					$templateToUpdate->other   = $data[$i]['other1'];
+		// 				}
+		// 				if(isset($data[$i]['about_neighborhood1']))
+		// 				{
+		// 					$templateToUpdate->about_neighborhood   = $data[$i]['about_neighborhood1'];
+		// 				}
+		// 				if(isset($data[$i]['get_around1']))
+		// 				{
+		// 					$templateToUpdate->get_around   = $data[$i]['get_around1'];
+		// 				}
+		// 				$templateToUpdate->save();
+		// 			} else {
+		// 				$newTemplate 			= new PropertyMeta;
+		// 				$newTemplate->property_id   = $property_id;
+		// 				if(isset($data[$i]['about_place1']))
+		// 				{
+		// 					$newTemplate->about_place  	= $data[$i]['about_place1'];
+		// 				}
+		// 				if(isset($data[$i]['place_is_great_for1']))
+		// 				{
+		// 					$newTemplate->place_is_great_for  	= $data[$i]['place_is_great_for1'];
+		// 				}
+		// 				if(isset($data[$i]['guest_can_access1']))
+		// 				{
+		// 					$newTemplate->guest_can_access   = $data[$i]['guest_can_access1'];
+		// 				}
+		// 				if(isset($data[$i]['interaction_guests1']))
+		// 				{
+		// 					$newTemplate->interaction_guests   = $data[$i]['interaction_guests1'];
+		// 				}
+		// 				if(isset($data[$i]['other1']))
+		// 				{
+		// 					$newTemplate->other   = $data[$i]['other1'];
+		// 				}
+		// 				if(isset($data[$i]['about_neighborhood1']))
+		// 				{
+		// 					$newTemplate->about_neighborhood   = $data[$i]['about_neighborhood1'];
+		// 				}
+		// 				if(isset($data[$i]['get_around1']))
+		// 				{
+		// 					$newTemplate->get_around   = $data[$i]['get_around1'];
+		// 				}
+		// 				$newTemplate->lang      = $lang[$i];
+		// 				$newTemplate->lang_id   = $lang_id[$i];
+		// 				$newTemplate->save();
+		// 			}
+		// 				}
+		// 		}
+
+
+        //        // return redirect('listing/'.$property_id.'/description');
+        //         return redirect('listing/'.$property_id.'/location');
+        //     }
+		// 	$data['languages_new'] 		   = Language::where(['language.status'=>'Active'])->orderBy('id')->get();
 
         } elseif ($step == 'location') {
             if ($request->isMethod('post')) {
@@ -410,7 +412,7 @@ class PropertyController extends Controller
 
                 $fieldNames = array(
                     'address_line_1' => 'Address Line 1',
-                    'country'        => 'Country',
+                    'country'        => 'País',
                     'city'           => 'City',
                     'state'          => 'State',
                     'latitude'       => 'Map',
@@ -444,7 +446,7 @@ class PropertyController extends Controller
                     return redirect('listing/'.$property_id.'/amenities');
                 }
             }
-            $data['country']       = Country::pluck('name', 'short_name');
+            //$data['country']       = Country::pluck('name', 'short_name');
         } elseif ($step == 'amenities') {
             if ($request->isMethod('post') && is_array($request->amenities)) {
                 $rooms            = Properties::find($request->id);
@@ -598,52 +600,56 @@ class PropertyController extends Controller
                     $property_price->guest_after       = $request->guest_after;
                     $property_price->security_fee      = $request->security_fee;
                     $property_price->weekend_price     = $request->weekend_price;
+                    $property_price->condominium       = $request->condominium;
+                    $property_price->iptu              = $request->iptu;
                     $property_price->save();
 
                     $property_steps = PropertySteps::where('property_id', $property_id)->first();
                     $property_steps->pricing = 1;
                     $property_steps->save();
 
-                    return redirect('listing/'.$property_id.'/booking');
+                    return redirect('properties');
+                    
                 }
             }
-        } elseif ($step == 'booking') {
-            if ($request->isMethod('post')) {
-
-               $settings = DB::table('settings')
-                               ->where('id', '=', 45)
-                			   ->where('name','=','auto_approval')
-                               ->get();
-
-                $property_steps          = PropertySteps::where('property_id', $property_id)->first();
-                $property_steps->booking = 1;
-                $property_steps->save();
-
-                $properties               = Properties::find($property_id);
-                $properties->booking_type = $request->booking_type;
-				$properties->cancellation = $request->cancellation;
-				$properties->check_in_after = $request->check_in_after;
-				$properties->check_out_before = $request->check_out_before;
-
-                $properties->status       = ( $properties->steps_completed == 0 ) ?  'Listed' : 'Unlisted';
-
-                if($settings[0]->value=="yes")
-				{
-				    $properties->admin_approval = 1;
-				}
-				else if($settings[0]->value=="no")
-				{
-					$properties->admin_approval = 0;
-				}
-
-                $properties->save();
-
-
-                return redirect('listing/'.$property_id.'/calendar');
-            }
-        } elseif ($step == 'calendar') {
-            $data['calendar'] = $calendar->generate($request->id);
         }
+        //  elseif ($step == 'booking') {
+        //     if ($request->isMethod('post')) {
+
+        //        $settings = DB::table('settings')
+        //                        ->where('id', '=', 45)
+        //         			   ->where('name','=','auto_approval')
+        //                        ->get();
+
+        //         $property_steps          = PropertySteps::where('property_id', $property_id)->first();
+        //         $property_steps->booking = 1;
+        //         $property_steps->save();
+
+        //         $properties               = Properties::find($property_id);
+        //         $properties->booking_type = $request->booking_type;
+		// 		$properties->cancellation = $request->cancellation;
+		// 		$properties->check_in_after = $request->check_in_after;
+		// 		$properties->check_out_before = $request->check_out_before;
+
+        //         $properties->status       = ( $properties->steps_completed == 0 ) ?  'Listed' : 'Unlisted';
+
+        //         if($settings[0]->value=="yes")
+		// 		{
+		// 		    $properties->admin_approval = 1;
+		// 		}
+		// 		else if($settings[0]->value=="no")
+		// 		{
+		// 			$properties->admin_approval = 0;
+		// 		}
+
+        //         $properties->save();
+
+
+        //         return redirect('listing/'.$property_id.'/calendar');
+        //     }
+        // } elseif ($step == 'calendar') {
+        //     $data['calendar'] = $calendar->generate($request->id);
+        // }
 
         return view("listing.$step", $data);
     }

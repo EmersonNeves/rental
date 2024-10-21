@@ -317,7 +317,11 @@
         			</li>
     			@endif
 			@endif
-
+			@if(Helpers::has_permission(Auth::guard('admin')->user()->id, 'manage_country'))
+			<li class="{{ (Route::current()->uri() == 'admin/settings/payment-plan' || Route::current()->uri() == 'admin/settings/add-payment-plan' || Route::current()->uri() == 'admin/settings/edit-payment-plan/{id}') ? 'active' : ''  }}">
+				<a href="{{ url('admin/settings/payment-plan') }}"><i class="fa fa-globe"></i><span>Manage Payment Plan</span></a>
+			</li>
+			@endif
 		<!-- Email Template Ends -->  
 	<!--	@if(Helpers::has_permission(Auth::guard('admin')->user()->id, 'general_setting'))
 			<li class="{{ (Request::segment(2) == 'settings') ? 'active' : ''  }}"><a href="{{ url('admin/settings') }}"><i class="fa fa-gears"></i><span>Settings</span></a></li>

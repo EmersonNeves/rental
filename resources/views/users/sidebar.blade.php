@@ -30,17 +30,17 @@
 				</a>
 				@endif
 				
-				<a class="text-color" href="{{ url('my-bookings') }}">
+				<!-- <a class="text-color" href="{{ url('my-bookings') }}">
 					<li class="vbg-default-hover pl-20 border-0 text-15 p-2  {{ (request()->is('my-bookings')) ? 'active-sidebar' : '' }}">
 						{{trans('messages.header.my_booking')}}
 					</li>
-				</a>
+				</a> -->
 				
-				<a class="text-color" href="{{ url('trips/active') }}">
+				<!-- <a class="text-color" href="{{ url('trips/active') }}">
 					<li class="vbg-default-hover pl-20 border-0 text-15 p-2  {{ (request()->is('trips/active')) ? 'active-sidebar' : '' }}">
 						{{trans('messages.header.your_trip')}}
 					</li>
-				</a>
+				</a> -->
 				
 				<a class="text-color" href="{{ url('mywishlist') }}">
 					<li class="vbg-default-hover pl-20  border-0 text-15 p-2 {{ (request()->is('mywishlist')) ? 'active-sidebar' : '' }}">

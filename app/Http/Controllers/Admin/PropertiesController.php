@@ -92,6 +92,7 @@ class PropertiesController extends Controller
               'accommodates'      => 'required',
               'map_address'       => 'required',
               'host_id'           => 'required',
+              'negociation_type'  => 'required', // Novo campo
             );
 
             $fieldNames = array(
@@ -99,7 +100,8 @@ class PropertiesController extends Controller
               'space_type'        => 'Room Type',
               'accommodates'      => 'Accommodates',
               'map_address'       => 'City',
-              'host_id'           => 'Host'
+              'host_id'           => 'Host',
+              'negociation_type'  => 'Negociation Type'
             );
 
             $validator = Validator::make($request->all(), $rules);
@@ -111,6 +113,7 @@ class PropertiesController extends Controller
                 $property                  = new Properties;
                 $property->host_id         = $request->host_id;
                 $property->name            = SpaceType::find($request->space_type)->name.' in '.$request->city;
+
                 $property->property_type   = $request->property_type_id;
                 $property->space_type      = $request->space_type;
                 $property->accommodates    = $request->accommodates;

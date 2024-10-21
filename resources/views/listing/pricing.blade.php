@@ -7,17 +7,17 @@
 			@include('users.sidebar')
 			<!--sidebar end-->
 
-	<div class="col-md-12 p-0">
-		         @include('listing.sidebar')
-		    </div>
+			<div class="col-md-12 p-0">
+				@include('listing.sidebar')
+			</div>
 			<div class="col-md-12 p-0">
 				<div class="main-panel">
 					<div class="row">
 						<div class="col-md-6 p-0 sv_step_first">
-						    <img src="{{ $seventh_step }}" class="img-fluid">
-            			        <div>
-                       				<h3 class="text-center text-52 font-weight-700">{{trans('messages.listing_basic.property_price')}}</h3>
-                                </div>
+							<img src="{{ $seventh_step }}" class="img-fluid">
+							<div>
+								<h3 class="text-center text-52 font-weight-700">{{trans('messages.listing_basic.property_price')}}</h3>
+							</div>
 						</div>
 
 						<div class="col-md-6 mt-4 mt-sm-0 pl-4 pr-4">
@@ -25,44 +25,84 @@
 								{{ csrf_field() }}
 								<div class="form-row mt-4 border rounded pb-4 m-0">
 									<div class="form-group col-md-12 main-panelbg pb-3 pt-3 pl-4">
-											<h4 class="text-16 font-weight-700">{{trans('messages.listing_price.base_price')}}</h4>
+										<h4 class="text-16 font-weight-700">{{trans('messages.listing_price.base_price')}}</h4>
 									</div>
 
 									<div class="form-group col-lg-6 pl-5 pr-5">
 										<label for="listing_price_native">
-											{{trans('messages.listing_price.night_price')}} 
+											{{trans('messages.listing_price.night_price')}}
 											<span class="text-danger">*</span>
 										</label>
 										<div class="form-groupw-100">
 											<div class="input-group-prepend ">
 												<span class="input-group-text line-height-2-4 text-16">{!! $result->property_price->currency->org_symbol !!}</span>
-											
-												<input type="text" id="price-night" value="{{ ($result->property_price->original_price == 0) ? '' : $result->property_price->original_price }}" name="price"  class="money-input w-100 text-16" >
+
+												<input type="text" id="price-night" value="{{ ($result->property_price->original_price == 0) ? '' : $result->property_price->original_price }}" name="price" class="money-input w-100 text-16">
 											</div>
 											<span class="text-danger" id="price-error">{{ $errors->first('price') }}</span>
 										</div>
 									</div>
 
-									<div class="form-group col-lg-6 pl-5 pr-5">
+
+									<div class="form-group col-lg-6 pl-5 pr-5" style="display: none;">
 										<label for="inputPassword4">{{trans('messages.listing_price.currency')}}</label>
 										<select id='price-select-currency_code' name="currency_code" class='form-control text-16 mt-2'>
 											@foreach($currency as $key => $value)
-												<option value="{{$key}}" {{$result->property_price->currency_code == $key?'selected':''}}>{{$value}}</option>
+											<option value="{{$key}}" {{($key == 'BRL') ? 'selected' : ''}}>{{$value}}</option>
 											@endforeach
 										</select>
 									</div>
 
 									<div class="form-group col-md-12">
 										@if($result->property_price->weekly_discount == 0 && $result->property_price->monthly_discount == 0)
-											<p id="js-set-long-term-prices" class="text-center text-muted set-long-term-prices">
-											{{trans('messages.listing_price.access_offer')}}  
-												<a  href="#" id="show_long_term" class="secondary-text-color">
-													{{trans('messages.listing_price.week_month')}}
-												</a> {{trans('messages.listing_price.price')}}.
-											</p>
+										<p id="js-set-long-term-prices" class="text-center text-muted set-long-term-prices">
+											{{trans('messages.listing_price.access_offer')}}
+											<a href="#" id="show_long_term" class="secondary-text-color">
+												{{trans('messages.listing_price.week_month')}}
+											</a> {{trans('messages.listing_price.price')}}.
+										</p>
 										@endif
 									</div>
 								</div>
+
+								<div class="form-row mt-4 border rounded pb-4 m-0">
+									<div class="form-group col-md-12 main-panelbg pb-3 pt-3 pl-4">
+										<h4 class="text-16 font-weight-700">Adicionais</h4>
+									</div>
+
+									<div class="form-group col-lg-6 pl-5 pr-5">
+										<label for="listing_price_native">
+											Condominio
+											<span class="text-danger">*</span>
+										</label>
+										<div class="form-groupw-100">
+											<div class="input-group-prepend ">
+												<span class="input-group-text line-height-2-4 text-16">{!! $result->property_price->currency->org_symbol !!}</span>
+
+												<input type="text" id="condominium" value="{{ ($result->property_price->condominium == 0) ? '' : $result->property_price->condominium }}" name="condominium" class="money-input w-100 text-16">
+											</div>
+											<span class="text-danger" id="price-error">{{ $errors->first('condominium') }}</span>
+										</div>
+									</div>
+
+									<div class="form-group col-lg-6 pl-5 pr-5">
+										<label for="listing_price_native">
+											IPTU
+											<span class="text-danger">*</span>
+										</label>
+										<div class="form-groupw-100">
+											<div class="input-group-prepend ">
+												<span class="input-group-text line-height-2-4 text-16">{!! $result->property_price->currency->org_symbol !!}</span>
+
+												<input type="text" id="iptu" value="{{ ($result->property_price->iptu == 0) ? '' : $result->property_price->iptu }}" name="iptu" class="money-input w-100 text-16">
+											</div>
+											<span class="text-danger" id="price-error">{{ $errors->first('price') }}</span>
+										</div>
+									</div>
+
+								</div>
+
+								
 
 								<div class="form-row mt-4 border rounded pb-4 m-0  {{ ($result->property_price->weekly_discount == 0 && $result->property_price->monthly_discount == 0)? 'display-off':''}}" id="long-term-div">
 									<div class="form-group col-md-12 main-panelbg pb-3 pt-3 pl-4">
@@ -70,7 +110,7 @@
 									</div>
 
 									<div class="col-md-12 pl-5 pr-5">
-										<label for="listing_price_native" >
+										<label for="listing_price_native">
 											{{trans('messages.listing_price.week_price')}}
 										</label>
 
@@ -88,14 +128,14 @@
 										<div class="input-addon">
 											<input type="text" data-suggested="₹16905" id="price-month" class="money-input text-16 mt-2" value="{{ $result->property_price->monthly_discount }}" name="monthly_discount" data-saving="long_price">
 											<span class="text-danger">
-											{{ $errors->first('monthly_discount') }}
+												{{ $errors->first('monthly_discount') }}
 											</span>
 										</div>
 									</div>
 								</div>
 
 
-								<div class="mt-4 border rounded pb-4 m-0">
+								<!-- <div class="mt-4 border rounded pb-4 m-0">
 									<div class="form-group col-md-12 main-panelbg pb-3 pt-3 pl-4">
 										<h4 class="text-16 font-weight-700">{{trans('messages.listing_price.additional_price')}}</h4>
 									</div>
@@ -194,22 +234,22 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								
-								<div class="col-md-12 mt-5">
+								</div> -->
+
+								<!-- <div class="col-md-12 mt-5">
     						        <hr class="step-hr">
-    						    </div>
+    						    </div> -->
 
 								<div class="row justify-content-between mb-5 pb-5">
 									<div class="mt-4">
-										<a  data-prevent-default="" href="{{ url('listing/'.$result->id.'/photos') }}" class="btn btn-outline-danger secondary-text-color-hover text-16 font-weight-700 pl-5 pr-5 pt-3 pb-3 pl-5 pr-5">
+										<a data-prevent-default="" href="{{ url('listing/'.$result->id.'/photos') }}" class="btn btn-outline-danger secondary-text-color-hover text-16 font-weight-700 pl-5 pr-5 pt-3 pb-3 pl-5 pr-5">
 											{{trans('messages.listing_description.back')}}
 										</a>
 									</div>
 
 									<div class="mt-4">
-										<button type="submit" class="btn vbtn-default text-16 font-weight-700 pl-5 pr-5 pt-3 pb-3 pl-5 pr-5" id="btn_next"> <i class="spinner fa fa-spinner fa-spin d-none" ></i> <span id="btn_next-text">{{trans('messages.listing_basic.next')}}</span>
-										
+										<button type="submit" class="btn vbtn-default text-16 font-weight-700 pl-5 pr-5 pt-3 pb-3 pl-5 pr-5" id="btn_next"> <i class="spinner fa fa-spinner fa-spin d-none"></i> <span id="btn_next-text">{{trans('messages.listing_basic.next')}}</span>
+
 										</button>
 									</div>
 								</div>
@@ -225,52 +265,62 @@
 	@push('scripts')
 	<script type="text/javascript" src="{{ url('public/js/jquery.validate.min.js') }}"></script>
 	<script type="text/javascript">
-		$(document).on('change', '.pricing_checkbox', function(){
-			if(this.checked){
-			var name = $(this).attr('data-rel');
-			$('#'+name).show();
-			}else{
-			var name = $(this).attr('data-rel');
-			$('#'+name).hide();
-			$('#price-'+name).val(0);
+		$(document).on('change', '.pricing_checkbox', function() {
+			if (this.checked) {
+				var name = $(this).attr('data-rel');
+				$('#' + name).show();
+			} else {
+				var name = $(this).attr('data-rel');
+				$('#' + name).hide();
+				$('#price-' + name).val(0);
 			}
 		});
 
-		$(document).on('click', '#show_long_term', function(){
+		$(document).on('click', '#show_long_term', function() {
 			$('#js-set-long-term-prices').hide();
 			$('#long-term-div').show();
 		});
 
-		$(document).on('change', '#price-select-currency_code', function(){
+		$(document).on('change', '#price-select-currency_code', function() {
 			var currency = $(this).val();
 			var dataURL = '{{url("currency-symbol")}}';
 			//console.log(currency);
 			$.ajax({
-			url: dataURL,
-			data: {
+				url: dataURL,
+				data: {
 					"_token": "{{ csrf_token() }}",
 					'currency': currency
 				},
-			type: 'post',
-			dataType: 'json',
-			success: function (result) {
-				if(result.success == 1)
-				$('.pay-currency').html(result.symbol);
-			},
-			error: function (request, error) {
-				// This callback function will trigger on unsuccessful action
-				console.log(error);
-			}
+				type: 'post',
+				dataType: 'json',
+				success: function(result) {
+					if (result.success == 1)
+						$('.pay-currency').html(result.symbol);
+				},
+				error: function(request, error) {
+					// This callback function will trigger on unsuccessful action
+					console.log(error);
+				}
 			});
 		});
 	</script>
 
 	<script type="text/javascript">
-		$(document).ready(function () {
+		$(document).ready(function() {
 			$('#lis_pricing').validate({
 				rules: {
 					price: {
 						required: true,
+						number: true,
+						min: 5
+					},
+					condominium: {
+						required: false,
+						number: true,
+						min: 5
+					},
+					iptu: {
+						required: false,
 						number: true,
 						min: 5
 					},
@@ -285,7 +335,7 @@
 						min: 0
 					}
 				},
-				errorPlacement: function (error, element) {
+				errorPlacement: function(error, element) {
 					console.log('dd', element.attr("name"))
 					if (element.attr("name") == "price") {
 						error.appendTo("#price-error");
@@ -294,20 +344,28 @@
 					}
 				},
 
-				submitHandler: function(form)
-	            {	           
-	                $("#btn_next").on("click", function (e)
-	                {	
-	                	$("#btn_next").attr("disabled", true);
-	                    e.preventDefault();
-	                });
-	                $(".spinner").removeClass('d-none');
-	                $("#btn_next-text").text("{{trans('messages.listing_basic.next')}}..");
-	                return true;
-	            },
+				submitHandler: function(form) {
+					$("#btn_next").on("click", function(e) {
+						$("#btn_next").attr("disabled", true);
+						e.preventDefault();
+					});
+					$(".spinner").removeClass('d-none');
+					$("#btn_next-text").text("{{trans('messages.listing_basic.next')}}..");
+					return true;
+				},
 				messages: {
 					price: {
-						required:  "{{ __('messages.jquery_validation.required') }}",
+						required: "{{ __('messages.jquery_validation.required') }}",
+						number: "{{ __('messages.jquery_validation.number') }}",
+						min: "{{ __('messages.jquery_validation.min5') }}",
+					},
+					condominium: {
+						required: "{{ __('messages.jquery_validation.required') }}",
+						number: "{{ __('messages.jquery_validation.number') }}",
+						min: "{{ __('messages.jquery_validation.min5') }}",
+					},
+					iptu: {
+						required: "{{ __('messages.jquery_validation.required') }}",
 						number: "{{ __('messages.jquery_validation.number') }}",
 						min: "{{ __('messages.jquery_validation.min5') }}",
 					},

@@ -61,7 +61,7 @@ class HomeController extends Controller
             $current_lang1 = Session::get('language');
             if($current_lang1=="")
             {
-                $current_lang1 ="en";
+                $current_lang1 ="pt";
             } 
             else
             {
