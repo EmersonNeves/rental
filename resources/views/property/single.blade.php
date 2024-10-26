@@ -290,8 +290,7 @@ if (Auth::check()) {
                               <label for="message" class="font-weight-600">Mensagem</label>
                               <textarea class="form-control text-14" id="message" name="message" rows="4" required></textarea>
                            </div>
-
-                           <button type="submit" class="btn button-email vbtn-outline-success text-16 font-weight-700 pl-5 pr-5 pt-3 pb-3">
+                           <button type="submit" class="email-button">
                               Enviar mensagem
                            </button>
                         </form>
@@ -860,7 +859,7 @@ if (Auth::check()) {
    </div>
    </div>
 
-   <div class="container mt-70" id="location1">
+   <div class="container mt-19" id="location1">
       <div class="row mt-5">
          <div class="col-md-12">
             <div id="room-detail-map" class="single-map-w mb-5"></div>
@@ -1808,11 +1807,11 @@ if (Auth::check()) {
 
       fetch('{{ route('send.message') }}', {
                method: 'POST',
-               body: formData,
-               headers: {
-                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
-               }
-            })
+                  body: formData,
+            headers: {
+               'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+         })
          .then(response => response.json())
          .then(data => {
             alert(data.message);

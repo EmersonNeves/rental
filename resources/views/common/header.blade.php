@@ -13,7 +13,7 @@ if ($currentPaths == 'old-home') {
 	}
 
 	#location::placeholder {
-		color: #fff;
+		color: #000;
 		/* Altere para a cor desejada */
 	}
 </style>
@@ -155,7 +155,7 @@ if ($guests > 0) {
 
 				<a class="navbar-brand logo_h light_logo" aria-label="logo" href="{{ url('/') }}"><img src="{{ $light_logo ?? '' }}" alt="logo" class="img-130x32"></a>
 
-				<a class="navbar-brand logo_h d-block" aria-label="logo" href="{{ url('/') }}"><img src="{{ $favicon ?? '' }}" alt="logo" class="mob-logo"></a>
+				<!-- <a class="navbar-brand logo_h d-block" aria-label="logo" href="{{ url('/') }}"><img src="{{ $favicon ?? '' }}" alt="logo" class="mob-logo"></a> -->
 				<a href="javascript:history.go(-1)" class="mob-back-btn d-block d-sm-none"><i class="fas fa-chevron-left"></i></a>
 				<!-- Trigger Button -->
 				<a href="#" aria-label="navbar" class="navbar-toggler" data-toggle="modal" data-target="#left_modal">
@@ -169,7 +169,7 @@ if ($guests > 0) {
 				<form id="front-search-form1" method="post" action="{{url('search')}}" class="front-search-form1 mob-search mt-3 mb-3 p-2">
 					{{ csrf_field() }}
 					<div class="row">
-						<input autocomplete="off" class="form-control p-3 text-14 m-0 font-weight-bold" id="location" placeholder="{{trans('messages.experience.anywhere')}}" name="location" type="text" value="@if(isset($location)){{$location}}@endif" required>
+						<input autocomplete="off" style="color: #495057!important;" class="form-control p-3 text-14 m-0 font-weight-bold" id="location" placeholder="{{trans('messages.experience.anywhere')}}" name="location" type="text" value="@if(isset($location)){{$location}}@endif" required>
 						<button type="submit" class="btn vbtn-default p-2 text-14"><i class="fa fa-search"></i></button>
 					</div>
 				</form>

@@ -218,9 +218,6 @@ input:checked + .slider:after
 
                         <div class="modal-body modal-body-filter">
                              <input class="form-control p-3 text-14" id="front-search-field" value="{{$location}}" autocomplete="off" name="location" type="hidden" required>
-                             <input class="form-control p-3 border-right-0 border text-14 checkinout" name="checkin" id="startDate" type="hidden" placeholder="{{trans('messages.search.check_in')}}" value="{{$checkin}}" autocomplete="off" readonly="readonly" required>
-                            <input class="form-control p-3 border-right-0 border text-14 checkinout" name="checkout" id="endDate" type="hidden" placeholder="{{trans('messages.search.check_out')}}"  value="{{$checkout}}" readonly="readonly" required>
-
                             <div class="form-group">
                         <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate">{{ trans('messages.search.location') }}</h5>
                         <input type="text" class="form-control" id="location-filter" name="location" value="{{ $location }}" placeholder="{{ trans('messages.home.where_want_to_go') }}">
@@ -325,11 +322,11 @@ input:checked + .slider:after
                                         <div>
                                             <div class="justify-content-between pl-4">
                                                 <input type="checkbox" id="venda" name="negociation_type" value="0">
-                                                <label for="venda">Venda</label>
+                                                <label for="venda">Comprar</label>
                                             </div>
                                             <div class="justify-content-between pl-4">
                                                 <input type="checkbox" id="aluguel" name="negociation_type" value="1" checked>
-                                                <label for="aluguel">Aluguel</label>
+                                                <label for="aluguel">Alugar</label>
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-4 rtl_text_right">

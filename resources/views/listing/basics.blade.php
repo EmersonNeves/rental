@@ -27,15 +27,6 @@
 							</div>
 
 							<div class="form-group col-md-4 pl-5 pr-5">
-								<label for="inputState">{{trans('messages.listing_basic.property_type')}}</label>
-								<select name="property_type" class="form-control text-16 mt-2">
-									@foreach($property_type as $key => $value)
-									<option value="{{ $key }}" {{ ($key == $result->property_type) ? 'selected' : '' }}>{{ $value }}</option>
-									@endforeach
-								</select>
-							</div>
-
-							<div class="form-group col-md-4 pr-5 mob-pd">
 								<label for="inputState">{{trans('messages.listing_basic.room_type')}}</label>
 								<select name="space_type" class="form-control text-16 mt-2">
 									@foreach($space_type as $key => $value)
@@ -45,6 +36,15 @@
 							</div>
 
 							<div class="form-group col-md-4 pr-5 mob-pd">
+								<label for="inputState">{{trans('messages.listing_basic.property_type')}}</label>
+								<select name="property_type" class="form-control text-16 mt-2">
+									@foreach($property_type as $key => $value)
+									<option value="{{ $key }}" {{ ($key == $result->property_type) ? 'selected' : '' }}>{{ $value }}</option>
+									@endforeach
+								</select>
+							</div>
+
+							<!-- <div class="form-group col-md-4 pr-5 mob-pd">
 								<label for="inputState">{{trans('messages.listing_basic.accommodate')}}</label>
 								<select name="accommodates" id="basics-select-accommodates" class="form-control text-16 mt-2">
 									@for($i=1;$i<=16;$i++)
@@ -53,7 +53,7 @@
 										</option>
 										@endfor
 								</select>
-							</div>
+							</div> -->
 						</div>
 						<div class="form-row mt-4 rounded pb-4">
 							<div class="form-group col-md-12 pb-3 pt-3 pl-0 pr-0">
@@ -102,7 +102,7 @@
 								<select
 									name="beds[1][number]"
 									class="form-control text-16 mt-2">
-									@for($i=1;$i<=16;$i++)
+									@for($i=0;$i<=16;$i++)
 										<option value="{{ $i }}">
 										{{ ($i == '16') ? $i.'+' : $i }}
 										</option>

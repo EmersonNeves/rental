@@ -79,7 +79,7 @@
 											<div class="input-group-prepend ">
 												<span class="input-group-text line-height-2-4 text-16">{!! $result->property_price->currency->org_symbol !!}</span>
 
-												<input type="text" id="condominium" value="{{ ($result->property_price->condominium == 0) ? '' : $result->property_price->condominium }}" name="condominium" class="money-input w-100 text-16">
+												<input type="text" id="condominium" value="{{ ($result->property_price->condominium == 0) ? '' : number_format($result->property_price->condominium, 2, ',', '.') }}" name="condominium" class="money-input w-100 text-16">
 											</div>
 											<span class="text-danger" id="price-error">{{ $errors->first('condominium') }}</span>
 										</div>

@@ -26,20 +26,7 @@
 					<input type="hidden" name='latitude' id='latitude'>
 					<input type="hidden" name='longitude' id='longitude'>
 					<div class="row p-4">
-						<div class="col-md-12">
-							<div class="form-group mt-4">
-								<label class="font-weight-600" for="exampleInputEmail1">{{trans('messages.property.home_type')}}</label>
-								<select name="property_type_id" class="form-control text-16">
-									@foreach($property_type as $key => $value)
-									<option data-icon-class="icon-star-alt" value="{{ $key }}">
-										{{ $value }}
-									</option>
-									@endforeach
-								</select>
-								@if ($errors->has('property_type_id')) <p class="error-tag">{{ $errors->first('property_type_id') }}</p> @endif
-							</div>
-						</div>
-						<div class="col-md-12">
+					<div class="col-md-12">
 							<div class="form-group mt-4">
 								<label class="font-weight-600" for="exampleInputEmail1">{{trans('messages.property.room_type')}}</label>
 								<select name="space_type" class="form-control text-16">
@@ -54,6 +41,20 @@
 						</div>
 						<div class="col-md-12">
 							<div class="form-group mt-4">
+								<label class="font-weight-600" for="exampleInputEmail1">{{trans('messages.property.home_type')}}</label>
+								<select name="property_type_id" class="form-control text-16">
+									@foreach($property_type as $key => $value)
+									<option data-icon-class="icon-star-alt" value="{{ $key }}">
+										{{ $value }}
+									</option>
+									@endforeach
+								</select>
+								@if ($errors->has('property_type_id')) <p class="error-tag">{{ $errors->first('property_type_id') }}</p> @endif
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="form-group mt-4">
 								<label class="font-weight-600" for="negociation_type">Tipo de Negociação</label>
 								<select name="negociation_type" class="form-control text-16">
 									<option value="0">Venda</option>
@@ -61,7 +62,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<!-- <div class="col-md-12">
 							<div class="form-group mt-4">
 								<label class="font-weight-600" for="exampleInputEmail1">{{trans('messages.property.accommodate')}}</label>
 								<select name="accommodates" class="form-control text-16">
@@ -73,7 +74,7 @@
 								</select>
 								@if ($errors->has('accommodates')) <p class="error-tag">{{ $errors->first('accommodates') }}</p> @endif
 							</div>
-						</div>
+						</div> -->
 
 						<div class="col-md-12">
 							<div class="form-group mt-4">
@@ -121,9 +122,6 @@
 				space_type: {
 					required: true
 				},
-				accommodates: {
-					required: true
-				},
 				map_address: {
 					required: true
 				}
@@ -146,9 +144,6 @@
 					required: "{{ __('messages.jquery_validation.required') }}",
 				},
 				space_type: {
-					required: "{{ __('messages.jquery_validation.required') }}",
-				},
-				accommodates: {
 					required: "{{ __('messages.jquery_validation.required') }}",
 				},
 				map_address: {
