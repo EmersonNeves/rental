@@ -288,7 +288,7 @@ input:checked + .slider:after
 
                             <div class="mt-4">
                                 <div class="col-sm-12">
-                                    <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate">{{trans('messages.search.room_type')}}</h5>
+                                    <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate">{{trans('messages.search.property_type')}}</h5>
                                 </div>
 
                                     <div class="row p-4">
@@ -315,52 +315,46 @@ input:checked + .slider:after
 
                             <div class="mt-4">
                                 <div class="col-sm-12">
+                                    <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="user_birthdate">{{trans('messages.search.room_type')}}</h5>
+                                </div>
+
+                                    <div class="row p-4">
+                                        @foreach($property_type as $rws=>$value)
+                                            <div class="col-md-3 rtl_text_right">
+
+                                                    <div class="justify-content-between pl-4">
+                                                        <div>
+                                                            <input type="checkbox" id="property_type_{{ $rws }}" name="property_type[]" value="{{ $rws }}" class="form-check-input" {{ in_array($rws, $property_type_selected)?'checked':'' }}>
+                                                        </div>
+                                                        <div class="pl-4">
+                                                            <p class="text-16"> {{ $value }}</p>
+                                                        </div>
+
+                                                    </div>
+
+                                            </div>
+                                        @endforeach    
+                                    </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="col-sm-12">
                                     <h5 class="font-weight-700 text-24 mt-2 p-4 rtl_text_right" for="negociation_type"> {{trans('messages.listing_book.booking_type')}} </h5>
                                 </div>
 
-                                    <div class="row p-3">
-                                        <div>
-                                            <div class="justify-content-between pl-4">
-                                                <input type="checkbox" id="venda" name="negociation_type" value="0">
-                                                <label for="venda">Comprar</label>
-                                            </div>
-                                            <div class="justify-content-between pl-4">
-                                                <input type="checkbox" id="aluguel" name="negociation_type" value="1" checked>
-                                                <label for="aluguel">Alugar</label>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-md-4 rtl_text_right">
-                                            <div class="justify-content-between pl-4">
-                                                <div>
-                                                    <input type="checkbox" name="book_type[]" class="form-check-input" value="request">
-                                                </div>
-                                                <div class="pl-4">
-                                                    <p class="text-16"><i class="fa fa-clock text-beach"></i> {{trans('messages.property_single.request_book')}}</p>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
-
-                                        <!-- <div class="col-md-4 rtl_text_right">
-                                            <div class="justify-content-between pl-4">
-                                                <div>
-                                                    <input type="checkbox" name="book_type[]" class="form-check-input"  value="instant">
-                                                </div>
-                                                <div class="pl-4">
-                                                    <p class="text-16"><i class="fa  fa-bolt text-beach"></i>  {{trans('messages.property_single.instant_book')}}</p>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
-
-                                        <!--<div class="col-md-12 text-right mt-4">
-                                            <button class="btn vbtn-success text-16 font-weight-700  rounded" id="btnBook">{{trans('messages.utility.apply')}}</button>
-                                        </div>-->
+                                <div class="row p-3">
+                                <div class="col-md-3">
+                                    <div class="justify-content-between pl-4">
+                                        <input type="checkbox" id="venda" name="negociation_type" value="0">
+                                        <label for="venda">Comprar</label>
                                     </div>
-
-                                 
-
-                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="justify-content-between pl-4">
+                                        <input type="checkbox" id="aluguel" name="negociation_type" value="1" checked>
+                                        <label for="aluguel">Alugar</label>
+                                    </div>
+                                </div>
 
 
                             <div class="row">
