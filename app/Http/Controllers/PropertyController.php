@@ -78,14 +78,14 @@ class PropertyController extends Controller
             $rules = array(
                 'property_type_id'  => 'required',
                 'space_type'        => 'required',
-                'accommodates'      => 'required',
+                //'accommodates'      => 'required',
                 'map_address'       => 'required',
             );
 
             $fieldNames = array(
                 'property_type_id'  => 'Home Type',
                 'space_type'        => 'Room Type',
-                'accommodates'      => 'Accommodates',
+                //'accommodates'      => 'Accommodates',
                 'map_address'       => 'City',
             );
 
@@ -101,7 +101,7 @@ class PropertyController extends Controller
                 $property->area            = $request->area;
                 $property->property_type   = $request->property_type_id;
                 $property->space_type      = $request->space_type;
-                $property->accommodates    = $request->accommodates;
+                $property->accommodates    = 0;
                 $property->save();
 
                 $property_address                 = new PropertyAddress;
@@ -162,7 +162,7 @@ class PropertyController extends Controller
                 $property->bathrooms          = $request->bathrooms;
                 $property->property_type      = $request->property_type;
                 $property->space_type         = $request->space_type;
-                $property->accommodates       = $request->accommodates;
+                $property->accommodates       = 0;
                 $property->area               = $request->area;
                 $property->save();
 

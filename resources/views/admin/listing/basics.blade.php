@@ -73,14 +73,6 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <label class="label-large">{{trans('messages.listing_basic.property_type')}}</label>
-              <select name="property_type" data-saving="basics1" class="form-control">
-                  @foreach($property_type as $key => $value)
-                    <option value="{{ $key }}" {{ ($key == $result->property_type) ? 'selected' : '' }}>{{ $value }}</option>
-                  @endforeach
-              </select>
-            </div>
-            <div class="col-md-4">
               <label class="label-large">{{trans('messages.listing_basic.room_type')}}</label>
               <select name="space_type" data-saving="basics1" class="form-control">
                   @foreach($space_type as $key => $value)
@@ -89,6 +81,14 @@
               </select>
             </div>
             <div class="col-md-4">
+              <label class="label-large">{{trans('messages.listing_basic.property_type')}}</label>
+              <select name="property_type" data-saving="basics1" class="form-control">
+                  @foreach($property_type as $key => $value)
+                    <option value="{{ $key }}" {{ ($key == $result->property_type) ? 'selected' : '' }}>{{ $value }}</option>
+                  @endforeach
+              </select>
+            </div>
+            <!-- <div class="col-md-4">
               <label class="label-large">{{trans('messages.listing_basic.accommodate')}}</label>
               <select name="accommodates" id="basics-select-accommodates" class="form-control">
                   @for($i=1;$i<=16;$i++)
@@ -97,7 +97,7 @@
                     </option>
                   @endfor
               </select>
-            </div>
+            </div> -->
 
           </div>
           <div class="row">

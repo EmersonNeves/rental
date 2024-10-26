@@ -977,7 +977,7 @@ return [
         'more_filters'       =>'Mais filtros',
         'no_result_found'    =>'Nenhum resultado encontrado',
         'size'               =>'Tamanho',
-        'bedrooms'           =>'Dormintórios',
+        'bedrooms'           =>'Dormitórios',
         'bathrooms'          =>'Banheiros',
         'beds'               =>'Vagas de Garagem',
         'amenities'          =>'Características',

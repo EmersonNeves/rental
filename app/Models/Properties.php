@@ -74,7 +74,7 @@ class Properties extends Model
     public function getSpaceTypeNameAttribute()
     {
         $result = SpaceType::where('id', $this->attributes['space_type'])->first();
-        return $result->name;
+        return $result->name ?? '';
     }
 
     public function getStepsCompletedAttribute()

@@ -54,21 +54,6 @@
             </div>
 
 
-
-            <div class="form-group">
-              <label for="exampleInputEmail1" class="control-label col-sm-3">{{trans('messages.property.home_type')}}</label>
-              <div class="col-sm-6">
-              <select name="property_type_id" class="form-control">
-                @foreach($property_type as $key => $value)
-                  <option data-icon-class="icon-star-alt"  value="{{ $key }}">
-                    {{ $value }}
-                  </option>
-                @endforeach
-              </select>
-              </div>
-              @if ($errors->has('property_type_id')) <p class="error-tag">{{ $errors->first('property_type_id') }}</p> @endif
-            </div>
-
             <div class="form-group">
               <label for="exampleInputEmail1" class="control-label col-sm-3">{{trans('messages.property.room_type')}}</label>
 
@@ -84,6 +69,19 @@
               @if ($errors->has('space_type')) <p class="error-tag">{{ $errors->first('space_type') }}</p> @endif
             </div>
             <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label col-sm-3">{{trans('messages.property.home_type')}}</label>
+              <div class="col-sm-6">
+              <select name="property_type_id" class="form-control">
+                @foreach($property_type as $key => $value)
+                  <option data-icon-class="icon-star-alt"  value="{{ $key }}">
+                    {{ $value }}
+                  </option>
+                @endforeach
+              </select>
+              </div>
+              @if ($errors->has('property_type_id')) <p class="error-tag">{{ $errors->first('property_type_id') }}</p> @endif
+            </div>
+            <!-- <div class="form-group">
               <label for="exampleInputEmail1" class="control-label col-sm-3">{{trans('messages.property.accommodate')}}</label>
               <div class="col-sm-6">
               <select name="accommodates" class="form-control">
@@ -94,7 +92,7 @@
                 @endfor
               </select>
               </div>
-              @if ($errors->has('accommodates')) <p class="error-tag">{{ $errors->first('accommodates') }}</p> @endif
+              @if ($errors->has('accommodates')) <p class="error-tag">{{ $errors->first('accommodates') }}</p> @endif -->
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1" class="control-label col-sm-3">{{trans('messages.property.city')}} <span class="text-danger">*</span></label>

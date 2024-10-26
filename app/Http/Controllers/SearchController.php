@@ -97,12 +97,12 @@ class SearchController extends Controller
         }
 
         $data['location']           = $request->input('location');
-        $data['checkin']            = $request->input('checkin');
-        $data['checkout']           = $request->input('checkout');
-        $data['adults']             = $request->input('adults');
-        $data['children']           = $request->input('children');
-        $data['babies']             = $request->input('babies');
-        $data['pets']               = $request->input('pets');
+       // $data['checkin']            = $request->input('checkin');
+       // $data['checkout']           = $request->input('checkout');
+       // $data['adults']             = $request->input('adults');
+       // $data['children']           = $request->input('children');
+       // $data['babies']             = $request->input('babies');
+       // $data['pets']               = $request->input('pets');
         $data['bedrooms']           = $request->input('bedrooms');
         $data['beds']               = $request->input('beds_number');
         $data['bathrooms']          = $request->input('bathrooms');
@@ -128,8 +128,8 @@ class SearchController extends Controller
         $data['amenities_selected'] = explode(',', $request->input('amenities'));
 
         //CUSTOM - PETS
-        if ($data['pets'] && $data['pets'] > 0)
-            $data['amenities_selected'][] = 24; //Pets Allowed
+        // if ($data['pets'] && $data['pets'] > 0)
+        //     $data['amenities_selected'][] = 24; //Pets Allowed
 
         /* $currency                   = Currency::where('default', 1)->first();
         $data['currency_symbol']    = $currency->symbol; */

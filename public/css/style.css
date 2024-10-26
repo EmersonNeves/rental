@@ -99,7 +99,9 @@ a:hover {
 .minus-mt-6 {
     margin-top: -6px;
 }
-
+.mt-19{
+    margin-top: 22rem;
+}
 .mt-70 {
     margin-top: 7rem;
 }
@@ -2494,7 +2496,7 @@ ul.tophd li {
     padding: 0.480rem .81rem;
     font-size: 1.6rem;
     line-height: 1.5;
-    color: #495057;
+    color: #495057!important;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
@@ -4434,8 +4436,8 @@ a.send-btn {
 }
  .front-search button {
     border-radius: 50%;
-    height: 45px;
-    width: 45px;
+    height: 28px;
+    width: 28px;
     float: right;
 }
 /* header::before {
@@ -4666,7 +4668,12 @@ a.send-btn {
     background: transparent;
 }
 .underline{text-decoration:underline;}
-#front-search-form1 .form-control{width:170px; border-right:1px solid #ddd; text-align: center;}
+#front-search-form1 .form-control{width:230px; text-align: center;}
+.front-search-form1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .svlogin_bg {
     background: url('../img/login-bg.jpg');
     background-position:100% 100%;
@@ -6574,4 +6581,21 @@ select{
 /** CUSTOM **/
 body {
   position: static !important;
+}
+
+.email-button {
+    background-color: #0d566d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    border: 0;
+}
+
+.email-button:hover {
+    background-color: #197a91;
+    color: white;
 }
