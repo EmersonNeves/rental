@@ -320,21 +320,21 @@ if (Auth::check()) {
                         <div class="d-flex flex-column pr-5">
                            <span>{{$result->negociation_type == 1 ? 'Aluguel' : 'Venda'}}</span>
                            <p class="text-35 font-weight-700 mb-0">
-                              {!! moneyFormat($result->property_price->currency->symbol, $result->property_price->price) !!}
+                              {!! formatCurrencyBRL($result->property_price->currency->symbol, $result->property_price->original_price) !!}
                               <span class="text-14">/ {{trans('messages.property_single.night')}}</span>
-                           </p>
+                           </?php>
                         </div>
                         <div class="d-flex justify-content-between">
                            <div class="d-flex flex-column mr-5">
                               <span>Condomínio</span>
                               <p class="text-20 font-weight-700 mb-0">
-                                 {!! moneyFormat($result->property_price->currency->symbol, $result->property_price->condominium) !!}
+                                 {!! formatCurrencyBRL($result->property_price->currency->symbol, $result->property_price->condominium) !!}
                               </p>
                            </div>
                            <div>
                               <span>IPTU</span>
                               <p class="text-20 font-weight-700 mb-0">
-                                 {!! moneyFormat($result->property_price->currency->symbol, $result->property_price->iptu) !!}
+                                 {!! formatCurrencyBRL($result->property_price->currency->symbol, $result->property_price->iptu) !!}
                               </p>
                            </div>
                         </div>

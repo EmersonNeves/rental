@@ -207,6 +207,12 @@ function moneyFormat($symbol, $value)
     return $value;
 }
 
+function formatCurrencyBRL($symbol, $value) {
+    // Formata o valor para duas casas decimais, com separador de milhar como ponto e separador decimal como vírgula
+    $formattedValue = number_format($value, 2, ',', '.');
+    return $symbol . ' ' . $formattedValue;
+}
+
 /**
  * [currencySymbolPosition description]
  * @return [position type of symbol after or before]

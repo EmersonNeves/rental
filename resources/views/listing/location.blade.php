@@ -110,7 +110,6 @@
 	<script type="text/javascript" src="{{ url('public/js/locationpicker.jquery.min.js') }}"></script>
 	<script type="text/javascript">
 		function updateControls(addressComponents) {
-			console.log('aqui',addressComponents.stateOrProvince);
 			$('#street_number').val(addressComponents.streetNumber);
 			$('#route').val(addressComponents.streetName);
 			//$('#city').val(addressComponents.city);
@@ -143,7 +142,7 @@
 				}else{
 					$('#city').val('');
 				}
-
+				$('#postal_code').val(addressComponents.postalCode);
 				$('#country').val('BR');
 				$('#country_fullname').val('Brasil');
 				$('#state').val(addressComponents.stateOrProvince);
